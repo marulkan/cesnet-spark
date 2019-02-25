@@ -17,11 +17,21 @@ class spark::historyserver::config {
 
   $keytab = $spark::keytab_historyserver
   if $spark::realm and $spark::realm != '' {
-    file { $keytab:
-      owner => 'spark',
-      group => 'spark',
-      mode  => '0400',
-      alias => 'spark.service.keytab',
+    if $spark::keytab_source {
+      file { $keytab:
+        owner  => 'spark',
+        group  => 'spark',
+        mode   => '0400',
+        alias  => 'spark.service.keytab',
+        source => $spark::keytab_source,
+      }
+    } else {
+      file { $keytab:
+        owner => 'spark',
+        group => 'spark',
+        mode  => '0400',
+        alias => 'spark.service.keytab',
+      }
     }
   }
 }
