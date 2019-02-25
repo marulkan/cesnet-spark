@@ -19,6 +19,7 @@ class spark (
   $jar_enable = false,
   $yarn_enable = true,
   $keytab_source = undef,
+  $packages = $params::packages,
 ) inherits ::spark::params {
   include ::stdlib
 
